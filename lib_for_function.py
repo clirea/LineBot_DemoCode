@@ -154,10 +154,11 @@ def is_not_valid(value):
 
 def create_message_models_from_message_log(messageLogList: List[TrnMessageLog]):
     roles = db.get_system_role() 
+    logger.debug(f"roles:{str(roles)}")
     messages = []
     for messageLog in messageLogList:
         # messageLog.SystemRoleID を使って、対応するロールの名前を見つけます。
-        role_name = next((role.SystemRoleName for role in roles if role.SystemRoleID == messageLog.SystemRoleID), None)
+        role_name = next((role.SystemRoleName for role in roles if role.SystemRoleID == messageLog.SystemRoleID), 'assistant')
         content = messageLog.Message
         # GptMessageModelのインスタンスを生成してリストに追加します。
         message_model = GptMessageModel(role=role_name, content=content)
