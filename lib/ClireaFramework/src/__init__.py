@@ -1,5 +1,5 @@
 from .AESCipher import AESCipher
-from .call_GPT import get_gpt_response_with_messages ,get_gpt_response_from_prompt , get_gpt_responses_json, create_message, async_gpt_responses
+from .call_GPT import get_gpt_response_with_messages ,get_gpt_response_from_prompt , get_gpt_responses_json, create_message, get_gpt_response_from_prompt_multi
 from .db import db
 
 from .line_api import create_quick_reply_message, add_quick_reply_items, add_quick_reply_items_template, get_profile, line_reply, handle_error, generate_quick_reply
