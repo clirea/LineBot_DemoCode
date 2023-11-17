@@ -42,7 +42,7 @@ def create_message(systemPrompt:str, messageList:List[GptMessageModel]=[], userM
     return messages
 
 #GPTへ送って返答を受け取る
-def get_gpt_response(systemprompt: str,gptmodel: str = GptModel) -> str:
+def get_gpt_response_from_prompt(systemprompt: str,gptmodel: str = GptModel) -> str:
     try:        
         messages = create_message(systemprompt)
         #GPTへ投げる
@@ -56,7 +56,7 @@ def get_gpt_response(systemprompt: str,gptmodel: str = GptModel) -> str:
         logger.error(f"{str(e)}")
         raise ValueError(f"{str(e)}") 
     
-def get_gpt_response(systemPrompt:str, messageList:List[GptMessageModel]=[], userMessage:str=None, gptmodel:str=GptModel) -> str:
+def get_gpt_response_with_messages(systemPrompt:str, messageList:List[GptMessageModel]=[], userMessage:str=None, gptmodel:str=GptModel) -> str:
     try:
         messages = create_message(systemPrompt,messageList,userMessage)
         #GPTへ投げる
@@ -93,14 +93,14 @@ def get_gpt_responses_json(messages: List[GptMessageModel] ,gptmodel: str):
     
          
 #非同期でGPTに投げる
-def async_gpt_responses(prompts):
+def get_gpt_response_from_prompt_multi(prompts):
     try:
         nest_asyncio.apply()
         loop = asyncio.get_event_loop()
         responses = []
 
         with ThreadPoolExecutor() as executor:
-            tasks = [loop.run_in_executor(executor, get_gpt_response, prompt, GptModel) for prompt in prompts]
+            tasks = [loop.run_in_executor(executor, get_gpt_response_from_prompt, prompt, GptModel) for prompt in prompts]
             responses = loop.run_until_complete(asyncio.gather(*tasks))
 
         return responses

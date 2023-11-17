@@ -5,7 +5,7 @@ from flask import jsonify
 from linebot import LineBotApi
 from linebot.models import MessageEvent, TextSendMessage,AudioSendMessage, QuickReply, QuickReplyButton, MessageAction
 from ..environment import _DEBUG, logger, ChannelAccessToken,ReplyCount, GptModel
-from ..src.call_GPT import get_gpt_response
+from ..src.call_GPT import get_gpt_response_from_prompt
 
 
 
@@ -174,7 +174,7 @@ Below is the context.
     
     # GPTに応答を求める
     logger.debug(f"prompt:{str(prompt)}")
-    responseText = get_gpt_response(prompt,GptModel)
+    responseText = get_gpt_response_from_prompt(prompt,GptModel)
     logger.debug(f"response:{str(responseText)}")
 
     try:

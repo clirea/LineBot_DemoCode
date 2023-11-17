@@ -96,7 +96,7 @@ def linebot_demo(event,line_bot_api):
         #GPTの返答を作成
         oldmessages = db.get_message_logs(user.UserID)    
         systemprompt = Prompt.MainPrompt
-        reply_text = get_gpt_response(systemprompt,create_message_models_from_message_log(oldmessages),user_message)
+        reply_text = get_gpt_response_with_messages(systemprompt,create_message_models_from_message_log(oldmessages),user_message)
         
         if add_reply_text != "":
             reply_text = add_reply_text + reply_text
