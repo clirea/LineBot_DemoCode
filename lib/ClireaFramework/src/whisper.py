@@ -27,13 +27,9 @@ def get_audio(LINE_ACCESS_TOKEN,OPENAI_APIKEY,message_id):
 
 def speech_to_text(file_path):
     with open(file_path, 'rb') as f:
-        files = {
-            'file': (os.path.basename(file_path), f)
-        }
-
         response = client.audio.transcriptions.create(
             model="whisper-1", 
-            file=files
+            file=f
             )
 
         if response.status_code == 200:
